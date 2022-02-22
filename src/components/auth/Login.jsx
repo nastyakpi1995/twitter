@@ -1,27 +1,36 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {Formik} from 'formik'
 import {Button, Input} from "antd";
 import {EyeInvisibleOutlined, EyeTwoTone, UserOutlined} from '@ant-design/icons';
 import styled from 'styled-components';
-import {Link} from "react-router-dom";
-import {routes} from "../../utils/constants";
+import {Link, useNavigate} from "react-router-dom";
+import {loginInitialValues, routes} from "../../utils/constants";
 import {loginValidateSchema} from "../../utils/validates";
+import {useMutation} from "react-query";
+import {loginFetch} from "../../utils/apiCaller";
 
-const initialValues = {
-    email: '',
-    password: ''
-}
 
 const Login = () => {
+    const {mutate, data, isLoading} = useMutation(loginFetch)
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        if (data?.data?.success) {
+            navigate(routes.HOME)
+        }
+    }, [data?.data?.success])
 
     const onSubmit = (values) => {
-        console.log('values', values)
+        mutate(values)
     }
     return (
         <Wrapper>
             <Title>Login</Title>
+            {data?.data?.error ? (
+                <div>{data.data.error}</div>
+            ) : null}
             <Formik
-                initialValues={initialValues}
+                initialValues={loginInitialValues}
                 validationSchema={loginValidateSchema}
                 onSubmit={onSubmit}>{({
                   values,
@@ -30,29 +39,27 @@ const Login = () => {
                   handleChange,
                   handleBlur,
                   handleSubmit,
-                  isSubmitting,
                 }) => (
                 <form onSubmit={handleSubmit}>
                     <MyInput
-                        name='email'
+                        name='logUserName'
                         onChange={handleChange}
-                        value={values.email}
+                        value={values.logUserName}
                         placeholder="Basic usage"
                         prefix={<UserOutlined />}
                     />
-                    {errors.email && touched.email && errors.email}
+                    {errors.logUserName && touched.logUserName && errors.logUserName}
 
                     <PasswordInput
-                        name="password"
+                        name="logPassword"
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        value={values.password}
+                        value={values.logPassword}
                         placeholder="input password"
                         iconRender={visible => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
                     />
-                    {errors.password && touched.password && errors.password}
-                    <Button onClick={handleSubmit} disabled={isSubmitting}>Submit</Button>
-
+                    {errors.logPassword && touched.logPassword && errors.logPassword}
+                    <Button onClick={handleSubmit} disabled={isLoading}>Submit</Button>
                 </form>
             )}
             </Formik>

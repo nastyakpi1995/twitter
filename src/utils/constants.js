@@ -1,13 +1,19 @@
 export const routes = {
     LOGIN: '/login',
-    REGISTRATION: '/registration'
+    REGISTRATION: '/registration',
+    HOME: '/home'
 }
 
-export const initialValues = {
+export const registerInitialValues = {
     firstName: '',
     lastName: '',
     userName: '',
     email: '',
     password: '',
     passwordConfirmation: ''
+}
+
+export const loginInitialValues = {
+    logUserName: '',
+    logPassword: ''
 }

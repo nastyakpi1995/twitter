@@ -4,6 +4,7 @@ import NoFoundPage from "./components/NoFoundPage";
 import Login from "./components/auth/Login";
 import {routes} from "./utils/constants";
 import Registration from "./components/auth/Registration";
+import HomePage from "./components/HomePage";
 
 const App = () => {
 
@@ -12,6 +13,7 @@ const App = () => {
             <Routes>
                 <Route path={routes.LOGIN} element={<Login />} />
                 <Route path={routes.REGISTRATION} element={<Registration />} />
+                <Route path={routes.HOME} element={<HomePage />} />
                 <Route path='*' element={<NoFoundPage />} />
             </Routes>
         </div>

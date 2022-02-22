@@ -6,11 +6,11 @@ import styled from 'styled-components';
 import {Link, useNavigate} from "react-router-dom";
 import {registrationValidateSchema} from "../../utils/validates";
 import {useMutation} from "react-query";
-import {getRegisterFetch} from "../../utils/apiCaller";
-import {initialValues, routes} from "../../utils/constants";
+import {registerFetch} from "../../utils/apiCaller";
+import {registerInitialValues, routes} from "../../utils/constants";
 
 const Registration = () => {
-    const { isLoading, error, data, isFetching, mutate } = useMutation(getRegisterFetch);
+    const { isLoading, error, data, isFetching, mutate } = useMutation(registerFetch);
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -37,7 +37,7 @@ const Registration = () => {
 
             <Formik
                 validationSchema={registrationValidateSchema}
-                initialValues={initialValues}
+                initialValues={registerInitialValues}
                 onSubmit={onSubmit}>{({
                   values,
                   errors,
