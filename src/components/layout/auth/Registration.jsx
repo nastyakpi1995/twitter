@@ -4,10 +4,10 @@ import {Button, Input} from "antd";
 import {EyeInvisibleOutlined, EyeTwoTone, UserOutlined} from '@ant-design/icons';
 import styled from 'styled-components';
 import {Link, useNavigate} from "react-router-dom";
-import {registrationValidateSchema} from "../../utils/validates";
+import {registrationValidateSchema} from "../../../utils/validates";
 import {useMutation} from "react-query";
-import {registerFetch} from "../../utils/apiCaller";
-import {registerInitialValues, routes} from "../../utils/constants";
+import {registerFetch} from "../../../utils/apiCaller";
+import {registerInitialValues, links} from "../../../utils/constants";
 
 const Registration = () => {
     const { isLoading, error, data, isFetching, mutate } = useMutation(registerFetch);
@@ -15,7 +15,7 @@ const Registration = () => {
 
     useEffect(() => {
         if (data?.data?.success) {
-            navigate(routes.LOGIN)
+            navigate(links.LOGIN)
         }
     }, [data?.data?.success])
 
@@ -102,7 +102,7 @@ const Registration = () => {
                 </form>
             )}
             </Formik>
-            <Link to={'/register'}>Need the account? Register here</Link>
+            <Link to={links.LOGIN}>You have the account? Login here</Link>
         </Wrapper>
     );
 }

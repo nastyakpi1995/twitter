@@ -1,4 +1,4 @@
-export const routes = {
+export const links = {
     LOGIN: '/login',
     REGISTRATION: '/registration',
     HOME: '/home'
@@ -16,4 +16,8 @@ export const registerInitialValues = {
 export const loginInitialValues = {
     logUserName: '',
     logPassword: ''
+}
+
+export const posterInitialValues = {
+    description: '',
 }

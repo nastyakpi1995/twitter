@@ -8,3 +8,6 @@ export const registrationValidateSchema = Yup.object().shape({
     email: Yup.string().required('user name Required'),
     password: Yup.string().required('password required'),
 })
+export const posterValidateSchema = Yup.object().shape({
+    description: Yup.string().required('description Required'),
+})

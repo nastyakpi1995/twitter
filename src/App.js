@@ -1,20 +1,21 @@
 import React from "react";
 import {Route, Routes} from "react-router-dom";
-import NoFoundPage from "./components/NoFoundPage";
-import Login from "./components/auth/Login";
-import {routes} from "./utils/constants";
-import Registration from "./components/auth/Registration";
-import HomePage from "./components/HomePage";
+import NotFoundRoute from "./components/layout/NotFoundRoute";
+import Login from "./components/layout/auth/Login";
+import {links} from "./utils/constants";
+import Registration from "./components/layout/auth/Registration";
+import HomePage from "./components/common/HomePage";
+import PrivatRoute from "./components/Providers";
 
 const App = () => {
 
     return (
         <div>
             <Routes>
-                <Route path={routes.LOGIN} element={<Login />} />
-                <Route path={routes.REGISTRATION} element={<Registration />} />
-                <Route path={routes.HOME} element={<HomePage />} />
-                <Route path='*' element={<NoFoundPage />} />
+                <Route path={links.LOGIN} element={<Login />} />
+                <Route path={links.REGISTRATION} element={<Registration />} />
+                <Route path={links.HOME} element={<PrivatRoute><HomePage /></PrivatRoute>} />
+                <Route path='*' element={<NotFoundRoute />} />
             </Routes>
         </div>
     );

@@ -1,28 +1,31 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {Formik} from 'formik'
 import {Button, Input} from "antd";
 import {EyeInvisibleOutlined, EyeTwoTone, UserOutlined} from '@ant-design/icons';
 import styled from 'styled-components';
 import {Link, useNavigate} from "react-router-dom";
-import {loginInitialValues, routes} from "../../utils/constants";
-import {loginValidateSchema} from "../../utils/validates";
+import {loginInitialValues, links} from "../../../utils/constants";
+import {loginValidateSchema} from "../../../utils/validates";
 import {useMutation} from "react-query";
-import {loginFetch} from "../../utils/apiCaller";
-
+import {loginFetch} from "../../../utils/apiCaller";
 
 const Login = () => {
+    const [user, setUser] = useState(null)
     const {mutate, data, isLoading} = useMutation(loginFetch)
     const navigate = useNavigate()
 
     useEffect(() => {
         if (data?.data?.success) {
-            navigate(routes.HOME)
+            localStorage.setItem('user', JSON.stringify(user))
+            navigate(links.HOME)
         }
     }, [data?.data?.success])
 
     const onSubmit = (values) => {
         mutate(values)
+        setUser(values)
     }
+
     return (
         <Wrapper>
             <Title>Login</Title>
@@ -63,7 +66,7 @@ const Login = () => {
                 </form>
             )}
             </Formik>
-            <Link to={routes.REGISTRATION}>Need the account? Register here</Link>
+            <Link to={links.REGISTRATION}>Need the account? Register here</Link>
         </Wrapper>
     );
 }
